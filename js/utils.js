@@ -112,3 +112,47 @@ function killPartilce ( i, partilceAttributes, alive ) {
     alive[i] = false;
     setElement( i, partilceAttributes.position, new THREE.Vector3(-1e9) );
 }
+
+function cohesion (i, particleAttributes) {
+    var pc_j = new THREE.Vector3(0.0, 0.0, 0.0);
+    for (var j = 0; j < particleAttributes.position.length; j++) {
+        if (j !== i) {
+            pc_j = pc_j.add(getElement(j, particleAttributes.position));
+        }
+    }
+
+    pc_j = pc_j.divideScalar(particleAttributes.position.length - 1);
+
+
+
+    return pc_j.clone().sub(getElement(i, particleAttributes.position)).divideScalar(100.0);
+}
+
+function separation (i, particleAttributes) {
+    var DIST_THING = 10.0;
+    var c = new THREE.Vector3(0.0, 0.0, 0.0);
+    for (var j = 0; j < particleAttributes.position.length; j++) {
+        if (j !== i) {
+            if (getElement(j, particleAttributes.position).distanceTo(getElement(i, particleAttributes.position)) < DIST_THING) 
+                c = c.sub(getElement(i, particleAttributes.position).clone().sub(getElement(j, particleAttributes.position)));
+        }
+    }
+    return c;
+}
+
+function alignment (i, particleAttributes) {
+    var DIST_THING = 10.0;
+    var pv_j = new THREE.Vector3(0.0, 0.0, 0.0);
+    for (var j = 0; j < particleAttributes.velocity.length; j++) {
+        if (j !== i) {
+            if (getElement(j, particleAttributes.position).distanceTo(getElement(i, particleAttributes.position)) < DIST_THING) {
+                pv_j = pv_j.add(getElement(j, particleAttributes.velocity));
+            }
+        }
+    }
+
+    pv_j = pv_j.divideScalar(particleAttributes.velocity.length - 1);
+
+    return pv_j.clone().sub(getElement(i, particleAttributes.velocity)).divideScalar(8.0);
+}
+
