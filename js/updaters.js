@@ -107,6 +107,7 @@ EulerUpdater.prototype.updateVelocities = function ( particleAttributes, alive, 
         var v = getElement( i, velocities );
         // now update velocity based on forces...
 
+        v = v.add(gravity.clone().multiplyScalar(delta_t));
         setElement( i, velocities, v );
         // ----------- STUDENT CODE END ------------
     }
