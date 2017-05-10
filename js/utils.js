@@ -140,35 +140,53 @@ function separation (i, particleAttributes) {
     // return c;
     var tot = new THREE.Vector3(0, 0, 0);
     var count = 0;
-    var desiredsep = 50.0;
+    var desiredsep = 2000.0;
     for (var j = 0; j < particleAttributes.position.length; j++) {
       var d = getElement(j, particleAttributes.position).distanceTo(getElement(i, particleAttributes.position));
       if (d < desiredsep) {
         var diff = new THREE.Vector3().subVectors(getElement(i, particleAttributes.position), getElement(j, particleAttributes.position));
         diff = diff.normalize();
         diff = diff.divideScalar(d);
-        tot.add(diff);
+        tot = tot.add(diff);
         count++;
       }
     }
     if (count > 0) {
-      tot.divideScalar(count);
+      tot = tot.divideScalar(count);
     }
     return tot;
 }
 
 function alignment (i, particleAttributes) {
-    var DIST_THING = 2000.0;
+    var DIST_THING = 5.0;
+    var count = 0;
     var pv_j = new THREE.Vector3(0.0, 0.0, 0.0);
     for (var j = 0; j < particleAttributes.velocity.length; j++) {
         if (j !== i) {
             if (getElement(j, particleAttributes.position).distanceTo(getElement(i, particleAttributes.position)) < DIST_THING) {
                 pv_j = pv_j.add(getElement(j, particleAttributes.velocity));
+                count++;
             }
         }
     }
-
-    pv_j = pv_j.divideScalar(particleAttributes.velocity.length - 1);
+    if (count > 0 ) return pv_j.divideScalar(100000.0);
+    else return new THREE.Vector3(0,0,0);
 
     return pv_j.clone().sub(getElement(i, particleAttributes.velocity)).divideScalar(20.0);
+    // var neighbordist = 50;
+    // var sum = new THREE.Vector3(0,0,0);
+    // var count = 0;
+    // for (var j = 0; j < particleAttributes.position.length; j++) {
+    //   var d = getElement(j, particleAttributes.position).distanceTo(getElement(i, particleAttributes.position));
+    //   if (d < neighbordist) {
+    //     sum = sum.add(getElement(j, particleAttributes.velocity));
+    //     count++;
+    //   }
+    // }
+    // if (count > 0) {
+    //   sum = sum.divideScalar(count);
+    // }
+    // else {
+    //   return new THREE.Vector3();
+    // }
 }
