@@ -111,3 +111,137 @@ SphereInitializer.prototype.initialize = function ( particleAttributes, toSpawn 
 
     this.initializeSizes( particleAttributes.size, toSpawn );
 };
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Animation Initializer
+////////////////////////////////////////////////////////////////////////////////
+
+function AnimationInitializer ( opts ) {
+    this._opts = opts;
+    return this;
+};
+
+// this function gets the morphed position of an animated mesh.
+// we recommend that you do not look too closely in here ;-)
+AnimationInitializer.prototype.getMorphedMesh = function () {
+
+     if ( ParticleEngine._meshes[0] !== undefined  && ParticleEngine._animations[0] !== undefined){
+
+        var mesh       = ParticleEngine._meshes[0];
+
+        var vertices   = [];
+        var n_vertices = mesh.geometry.vertices.length;
+
+        var faces      = ParticleEngine._meshes[0].geometry.faces;
+
+        var morphInfluences = ParticleEngine._meshes[0].morphTargetInfluences;
+        var morphs          = ParticleEngine._meshes[0].geometry.morphTargets;
+
+        if ( morphs === undefined ) {
+            return undefined;
+        }
+        for ( var i = 0 ; i < morphs.length ; ++i ) {
+
+            if ( morphInfluences[i] !== 0.0 ) {
+                for ( var j = 0 ; j < n_vertices ; ++j ) {
+                    vertices[j] = new THREE.Vector3( 0.0, 0.0, 0.0 );
+                    vertices[j].add ( morphs[i].vertices[j] );
+                }
+            }
+        }
+        return { vertices : vertices, faces : faces, scale: mesh.scale, position: mesh.position };
+
+    } else {
+
+        return undefined;
+
+    }
+}
+
+
+AnimationInitializer.prototype.initializePositions = function ( positions, toSpawn, mesh ) {
+
+    var base_pos = this._opts.position;
+
+    for ( var i = 0 ; i < toSpawn.length ; ++i ) {
+        // ----------- STUDENT CODE BEGIN ------------
+        var p = base_pos;
+
+        setElement( i, positions, p );
+        // ----------- STUDENT CODE END ------------
+
+    }
+    positions.needUpdate = true;
+}
+
+AnimationInitializer.prototype.initializeVelocities = function ( velocities, toSpawn) {
+
+    var base_vel = this._opts.velocity;
+    for ( var i = 0 ; i < toSpawn.length ; ++i ) {
+        var idx = toSpawn[i];
+        // ----------- STUDENT CODE BEGIN ------------
+        var vel = base_vel;
+
+        setElement( idx, velocities, vel );
+        // ----------- STUDENT CODE END ------------
+    }
+    velocities.needUpdate = true;
+}
+
+AnimationInitializer.prototype.initializeColors = function ( colors, toSpawn) {
+
+    var base_col = this._opts.color;
+    for ( var i = 0 ; i < toSpawn.length ; ++i ) {
+        var idx = toSpawn[i];
+        // ----------- STUDENT CODE BEGIN ------------
+
+        setElement( idx, colors, base_col );
+        // ----------- STUDENT CODE END ------------
+    }
+    colors.needUpdate = true;
+}
+
+AnimationInitializer.prototype.initializeSizes = function ( sizes, toSpawn) {
+
+    for ( var i = 0 ; i < toSpawn.length ; ++i ) {
+        var idx = toSpawn[i];
+        // ----------- STUDENT CODE BEGIN ------------
+
+        setElement( idx, sizes, this._opts.size );
+        // ----------- STUDENT CODE END ------------
+    }
+    sizes.needUpdate = true;
+}
+
+AnimationInitializer.prototype.initializeLifetimes = function ( lifetimes, toSpawn) {
+
+    for ( var i = 0 ; i < toSpawn.length ; ++i ) {
+        var idx = toSpawn[i];
+        setElement( idx, lifetimes, this._opts.lifetime );
+    }
+    lifetimes.needUpdate = true;
+}
+
+// how to make this funciton nicer to work with. This one is kinda ok, as for initialization
+// everything is independent
+AnimationInitializer.prototype.initialize = function ( particleAttributes, toSpawn ) {
+
+    var mesh = this.getMorphedMesh();
+
+    if ( mesh == undefined ){
+        return;
+    }
+
+    // update required values
+    this.initializePositions( particleAttributes.position, toSpawn, mesh );
+
+    this.initializeVelocities( particleAttributes.velocity, toSpawn );
+
+    this.initializeColors( particleAttributes.color, toSpawn );
+
+    this.initializeLifetimes( particleAttributes.lifetime, toSpawn );
+
+    this.initializeSizes( particleAttributes.size, toSpawn );
+
+};

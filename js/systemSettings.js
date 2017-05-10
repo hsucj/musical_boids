@@ -54,7 +54,15 @@ SystemSettings.basic = {
     // Scene
     maxParticles :  100,
     particlesFreq : 1000,
-    createScene : function () {},
+    createScene : function () {
+      var plane_geo = new THREE.PlaneBufferGeometry( 1000, 1000, 1, 1 );
+      var phong      = new THREE.MeshPhongMaterial( {color: 0x444444, emissive:0x442222, side: THREE.DoubleSide } );
+      var plane = new THREE.Mesh( plane_geo, phong );
+      plane.rotation.x = -1.57;
+      plane.position.y = -50;
+
+      Scene.addObject( plane );
+    },
 };
 
 
@@ -92,14 +100,75 @@ SystemSettings.attractor = {
     particlesFreq : 1000,
     createScene : function () {
         var sphere_geo = new THREE.SphereGeometry( 1.0, 32, 32 );
+        var plane_geo = new THREE.PlaneBufferGeometry( 1000, 1000, 1, 1 );
         var phong      = new THREE.MeshPhongMaterial( {color: 0x444444, emissive:0x442222, side: THREE.DoubleSide } );
-        var sphere = new THREE.Mesh( sphere_geo, phong )
+        var sphere = new THREE.Mesh( sphere_geo, phong );
+        var plane = new THREE.Mesh( plane_geo, phong );
+
+        plane.rotation.x = -1.57;
+        plane.position.y = 0;
 
         sphere.position.set (30.0, 30.0, 30.0);
         Scene.addObject( sphere );
-    },
+        Scene.addObject( plane );
+    }
 };
 
+
+SystemSettings.animated = {
+
+    // Particle Material
+    particleMaterial :  SystemSettings.standardMaterial,
+
+    // Initializer
+    initializerFunction : AnimationInitializer,
+    initializerSettings : {
+        position: new THREE.Vector3 ( 0.0, 60.0, 0.0),
+        color:    new THREE.Vector4 ( 1.0, 1.0, 1.0, 1.0 ),
+        velocity: new THREE.Vector3 ( 0.0, 0.0, -40.0),
+        lifetime: 1.25,
+        size:     2.0,
+    },
+
+    // Updater
+    updaterFunction : EulerUpdater,
+    updaterSettings : {
+        externalForces : {
+            gravity :     new THREE.Vector3( 0, 0, 0),
+            attractors : [],
+        },
+        collidables: {
+            bouncePlanes: [ {plane : new THREE.Vector4( 0, 1, 0, 0 ), damping : 0.8 } ],
+        },
+    },
+
+    // Scene
+    maxParticles:  20000,
+    particlesFreq: 10000,
+    createScene : function () {
+        var plane_geo = new THREE.PlaneBufferGeometry( 1000, 1000, 1, 1 );
+        var phong     = new THREE.MeshPhongMaterial( {color: 0x444444, emissive:0x444444, side: THREE.DoubleSide } );
+        var plane = new THREE.Mesh( plane_geo, phong );
+        plane.rotation.x = -1.57;
+        plane.position.y = 0;
+
+        Scene.addObject( plane );
+    },
+
+    // Animation
+    // animatedModelName: "animated_models/horse.js",
+    // animationLoadFunction : function( geometry ) {
+    //
+    //     mesh = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( { color: 0x606060, morphTargets: true, transparent:true, opacity:0.5 } ) );
+    //     mesh.scale.set( 0.25, 0.25, 0.25 );
+    //     // mesh.position.set( 0.0, 30.0, 0.0 );
+    //     Scene.addObject( mesh );
+    //     ParticleEngine.addMesh( mesh );
+    //
+    //     ParticleEngine.addAnimation( new THREE.MorphAnimation( mesh ) );
+    // },
+
+};
 
 ////////////////////////////////////////////////////////////////////////////////
 // My System

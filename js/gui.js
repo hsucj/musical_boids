@@ -167,4 +167,3 @@ Gui.closeAlert = function () {
     var alertDiv = document.getElementById('alert_div');
     alertDiv.style.display = 'none';
 };
-
