@@ -110,7 +110,7 @@ EulerUpdater.prototype.updateVelocities = function ( particleAttributes, alive, 
         v = v.add(gravity.clone().multiplyScalar(delta_t));
         v = v.add(cohesion(i, particleAttributes));
         v = v.add(separation(i, particleAttributes));
-        //v = v.add(alignment(i, particleAttributes));
+        // v = v.add(alignment(i, particleAttributes));
 
         setElement( i, velocities, v );
         // ----------- STUDENT CODE END ------------

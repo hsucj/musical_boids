@@ -129,19 +129,36 @@ function cohesion (i, particleAttributes) {
 }
 
 function separation (i, particleAttributes) {
-    var DIST_THING = 10.0;
-    var c = new THREE.Vector3(0.0, 0.0, 0.0);
+    //var DIST_THING = 1.0;
+    // var c = new THREE.Vector3(0.0, 0.0, 0.0);
+    // for (var j = 0; j < particleAttributes.position.length; j++) {
+    //     if (j !== i) {
+    //         if (getElement(j, particleAttributes.position).distanceTo(getElement(i, particleAttributes.position)) < DIST_THING)
+    //             c = c.sub(getElement(i, particleAttributes.position).clone().sub(getElement(j, particleAttributes.position)));
+    //     }
+    // }
+    // return c;
+    var tot = new THREE.Vector3(0, 0, 0);
+    var count = 0;
+    var desiredsep = 50.0;
     for (var j = 0; j < particleAttributes.position.length; j++) {
-        if (j !== i) {
-            if (getElement(j, particleAttributes.position).distanceTo(getElement(i, particleAttributes.position)) < DIST_THING) 
-                c = c.sub(getElement(i, particleAttributes.position).clone().sub(getElement(j, particleAttributes.position)));
-        }
+      var d = getElement(j, particleAttributes.position).distanceTo(getElement(i, particleAttributes.position));
+      if (d < desiredsep) {
+        var diff = new THREE.Vector3().subVectors(getElement(i, particleAttributes.position), getElement(j, particleAttributes.position));
+        diff = diff.normalize();
+        diff = diff.divideScalar(d);
+        tot.add(diff);
+        count++;
+      }
     }
-    return c;
+    if (count > 0) {
+      tot.divideScalar(count);
+    }
+    return tot;
 }
 
 function alignment (i, particleAttributes) {
-    var DIST_THING = 10.0;
+    var DIST_THING = 2000.0;
     var pv_j = new THREE.Vector3(0.0, 0.0, 0.0);
     for (var j = 0; j < particleAttributes.velocity.length; j++) {
         if (j !== i) {
@@ -153,6 +170,5 @@ function alignment (i, particleAttributes) {
 
     pv_j = pv_j.divideScalar(particleAttributes.velocity.length - 1);
 
-    return pv_j.clone().sub(getElement(i, particleAttributes.velocity)).divideScalar(8.0);
+    return pv_j.clone().sub(getElement(i, particleAttributes.velocity)).divideScalar(20.0);
 }
-
