@@ -123,7 +123,11 @@ function cohesion (i, particleAttributes) {
 
     pc_j = pc_j.divideScalar(particleAttributes.position.length - 1);
 
+    var dt = (new Date()).getTime();
+    var x = 60.0 * Math.cos(dt / 1000.0);
+    var z = 60.0 * Math.sin(dt / 1000.0);
 
+    pc_j = new THREE.Vector3(x, 5, z);
 
     return pc_j.clone().sub(getElement(i, particleAttributes.position)).divideScalar(100.0);
 }
@@ -154,6 +158,7 @@ function separation (i, particleAttributes) {
     if (count > 0) {
       tot = tot.divideScalar(count);
     }
+    tot.multiplyScalar(-1);
     return tot;
 }
 

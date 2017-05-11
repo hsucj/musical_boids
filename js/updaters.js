@@ -112,6 +112,10 @@ EulerUpdater.prototype.updateVelocities = function ( particleAttributes, alive, 
         v = v.add(separation(i, particleAttributes));
         v = v.add(alignment(i, particleAttributes));
 
+        
+
+
+
         setElement( i, velocities, v );
         // ----------- STUDENT CODE END ------------
     }
@@ -121,11 +125,16 @@ EulerUpdater.prototype.updateVelocities = function ( particleAttributes, alive, 
 EulerUpdater.prototype.updateColors = function ( particleAttributes, alive, delta_t ) {
     var colors    = particleAttributes.color;
 
+
     for ( var i = 0 ; i < alive.length ; ++i ) {
 
         if ( !alive[i] ) continue;
         // ----------- STUDENT CODE BEGIN ------------
         var c = getElement( i, colors );
+        // if (i == 0) {
+        //   c.y = 0;
+        //   c.z = 0;
+        // }
 
         setElement( i, colors, c );
         // ----------- STUDENT CODE END ------------
