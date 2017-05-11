@@ -1,6 +1,8 @@
 // This js file abstracts away the rendering aspects of three.js
 // Unless you are interested, do not read into this file.
 
+var song;
+
 var Renderer = Renderer || {
     // internal variables
     _canvas     : undefined,
@@ -31,6 +33,18 @@ Renderer.getDims = function() {
 
 Renderer.create = function( scene, canvas ) {
     Renderer.getDims();
+
+
+    // function preload() {
+    //   song = loadSound('../music/symphony.mp3');
+    //   console.log(song.isLoaded());
+    // }
+    //
+    // function setup() {
+    //   song.setVolume(0.5);
+    //   song.play();
+    // }
+
 
     // Canvas and rendering setup
     Renderer._canvas = canvas;
