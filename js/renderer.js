@@ -34,18 +34,6 @@ Renderer.getDims = function() {
 Renderer.create = function( scene, canvas ) {
     Renderer.getDims();
 
-
-    // function preload() {
-    //   song = loadSound('../music/symphony.mp3');
-    //   console.log(song.isLoaded());
-    // }
-    //
-    // function setup() {
-    //   song.setVolume(0.5);
-    //   song.play();
-    // }
-
-
     // Canvas and rendering setup
     Renderer._canvas = canvas;
     Renderer._renderer = new THREE.WebGLRenderer( { canvas:canvas, antialias: true, preserveDrawingBuffer: true } );
@@ -80,6 +68,7 @@ Renderer.create = function( scene, canvas ) {
     // create raycaster
     Renderer._mouse = new THREE.Vector2;
     Renderer._raycaster = new THREE.Raycaster();
+
 };
 
 Renderer.onWindowResize = function () {

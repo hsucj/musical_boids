@@ -72,4 +72,11 @@ window.onload = function() {
     Renderer.create( Scene, document.getElementById("canvas") );
 
     Renderer.update();
+
+    var song = p5.prototype.loadSound('../music/symphony.mp3', function(song) {
+      console.log("Song is loaded.");
+      console.log(song);
+      // song.setVolume(0.5);
+      song.play();
+    });
 };
