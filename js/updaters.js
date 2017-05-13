@@ -8,7 +8,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 var Collisions = Collisions || {};
-var analyzer;
 
 
 Collisions.BouncePlane = function ( particleAttributes, alive, delta_t, plane,damping ) {
@@ -151,7 +150,7 @@ EulerUpdater.prototype.updateSizes= function ( particleAttributes, alive, delta_
 
         if (song) {
           var amp = analyzer.getLevel();
-          s = s * (1.0 + amp * 50);
+          s = 5.0 + 20*(amp);
         }
 
         setElement( i, sizes, s );
@@ -206,9 +205,6 @@ EulerUpdater.prototype.collisions = function ( particleAttributes, alive, delta_
 };
 
 EulerUpdater.prototype.update = function ( particleAttributes, alive, delta_t ) {
-
-    analyzer = new p5.Amplitude();
-    analyzer.setInput(song);
 
     this.updateLifetimes( particleAttributes, alive, delta_t );
     this.updateVelocities( particleAttributes, alive, delta_t );

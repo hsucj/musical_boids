@@ -58,6 +58,7 @@ Main.particleSystemChangeCallback = function ( InputSettings ) {
 };
 
 var song;
+var analyzer;
 
 // when HTML is finished loading, do this
 window.onload = function() {
@@ -81,4 +82,6 @@ window.onload = function() {
       // song.setVolume(0.5);
       song.play();
     });
+    analyzer = new p5.Amplitude();
+    analyzer.setInput(song);
 };
