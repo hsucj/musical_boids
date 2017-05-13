@@ -57,6 +57,8 @@ Main.particleSystemChangeCallback = function ( InputSettings ) {
     InputSettings.createScene();
 };
 
+var song;
+
 // when HTML is finished loading, do this
 window.onload = function() {
     Student.updateHTML();
@@ -73,7 +75,7 @@ window.onload = function() {
 
     Renderer.update();
 
-    var song = p5.prototype.loadSound('../music/symphony.mp3', function(song) {
+    song = p5.prototype.loadSound('../music/symphony.mp3', function(song) {
       console.log("Song is loaded.");
       console.log(song);
       // song.setVolume(0.5);
