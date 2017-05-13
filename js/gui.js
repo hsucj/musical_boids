@@ -13,6 +13,8 @@ Gui.particleSystems = [ "basic", "fountainBounce", "fountainSink", "attractor", 
 
 Gui.textures = [ "blank", "base", "fire", "smoke", "spark", "sphere", "smoke" ];
 
+Gui.music = ["symphony.mp3"]
+
 
 // due to a bug in dat GUI we need to initialize floats to non-interger values (like 0.5)
 // (the variable Gui.defaults below then carries their default values, which we set later)
@@ -24,6 +26,7 @@ Gui.values = {
     blendTypes:  Gui.blendTypes[0],
     textures:    Gui.textures[0],
     systems:     Gui.particleSystems[0],
+    music:       Gui.music[0],
     depthTest:   true,
     transparent: true,
     sorting:     true,
@@ -74,6 +77,7 @@ Gui.init = function ( meshChangeCallback, controlsChangeCallback, displayChangeC
     gc.stopTime  = gui.add( Gui.values, 'stopTime' ).name( "Pause" );
     gc.reset     = gui.add( Gui.values, 'reset' ).name("Reset");
     gc.systems   = gui.add( Gui.values, 'systems', Gui.particleSystems ).name("ParticleSystems");
+    gc.music       = gui.add(Gui.values, 'music', Gui.music).name("Music");
 
     var disp = gui.addFolder( "DISPLAY OPTIONS");
     gc.blends    = disp.add( Gui.values, 'blendTypes', Gui.blendTypes ).name("Blending Types");
@@ -116,6 +120,10 @@ Gui.init = function ( meshChangeCallback, controlsChangeCallback, displayChangeC
         var settings = SystemSettings[value];
         Main.particleSystemChangeCallback ( settings );
     } );
+
+    gc.music.onChange( function(value) {
+
+    });
 
     gc.depthTest.onChange( function( value ) {
         var emitters = ParticleEngine.getEmitters();
