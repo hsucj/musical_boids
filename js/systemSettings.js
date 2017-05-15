@@ -3,7 +3,7 @@ var SystemSettings = SystemSettings || {};
 SystemSettings.standardMaterial = new THREE.ShaderMaterial( {
 
     uniforms: {
-        texture:  { type: 't',  value: new THREE.ImageUtils.loadTexture( 'images/blank.png' ) },
+        texture:  { type: 't',  value: new THREE.ImageUtils.loadTexture( 'images/base.png' ) },
     },
 
     attributes: {

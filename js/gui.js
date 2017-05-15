@@ -9,11 +9,11 @@ Gui.windowSizes = [ "full","400x400","600x400","600x600","800x600","800x800" ];
 
 Gui.blendTypes = [ "Normal", "Additive" ];
 
-Gui.particleSystems = [ "basic", "fountainBounce", "fountainSink", "attractor", "animated", "cloth", "mySystem" ];
+//Gui.particleSystems = [ "basic", "fountainBounce", "fountainSink", "attractor", "animated", "cloth", "mySystem" ];
 
 Gui.textures = [ "blank", "base", "fire", "smoke", "spark", "sphere", "smoke" ];
 
-Gui.music = ["symphony.mp3"]
+Gui.music = ["symphony.mp3"];
 
 
 // due to a bug in dat GUI we need to initialize floats to non-interger values (like 0.5)
@@ -24,10 +24,10 @@ Gui.values = {
     stopTime:    function () {},
     guiToBatch : function() {},
     blendTypes:  Gui.blendTypes[0],
-    textures:    Gui.textures[0],
-    systems:     Gui.particleSystems[0],
+    textures:    Gui.textures[1],
+    systems:     "basic",
     music:       Gui.music[0],
-    depthTest:   true,
+    depthTest:   false,
     transparent: true,
     sorting:     true,
 };
@@ -76,13 +76,13 @@ Gui.init = function ( meshChangeCallback, controlsChangeCallback, displayChangeC
     var gc = {};
     gc.stopTime  = gui.add( Gui.values, 'stopTime' ).name( "Pause" );
     gc.reset     = gui.add( Gui.values, 'reset' ).name("Reset");
-    gc.systems   = gui.add( Gui.values, 'systems', Gui.particleSystems ).name("ParticleSystems");
+    // gc.systems   = gui.add( Gui.values, 'systems', Gui.particleSystems ).name("ParticleSystems");
     gc.music       = gui.add(Gui.values, 'music', Gui.music).name("Music");
 
     var disp = gui.addFolder( "DISPLAY OPTIONS");
     gc.blends    = disp.add( Gui.values, 'blendTypes', Gui.blendTypes ).name("Blending Types");
     gc.textures  = disp.add( Gui.values, 'textures', Gui.textures ).name("Textures");
-    gc.depthTest = disp.add( Gui.values, 'depthTest' ).name("Depth Test");
+
     gc.transp    = disp.add( Gui.values, 'transparent' ).name("Transparent");
     gc.sort      = disp.add( Gui.values, 'sorting' ).name("Sorting");
 
@@ -116,21 +116,16 @@ Gui.init = function ( meshChangeCallback, controlsChangeCallback, displayChangeC
         }
     } );
 
-    gc.systems.onChange( function(value) {
-        var settings = SystemSettings[value];
-        Main.particleSystemChangeCallback ( settings );
-    } );
+    // gc.systems.onChange( function(value) {
+    //     var settings = SystemSettings[value];
+    //     Main.particleSystemChangeCallback ( settings );
+    // } );
 
     gc.music.onChange( function(value) {
 
     });
 
-    gc.depthTest.onChange( function( value ) {
-        var emitters = ParticleEngine.getEmitters();
-        for ( var i = 0 ; i < emitters.length ; i++ ) {
-            emitters[i]._material.depthTest = value;
-        }
-    });
+    
 
     gc.transp.onChange( function( value ) {
         var emitters = ParticleEngine.getEmitters();
@@ -151,7 +146,7 @@ Gui.init = function ( meshChangeCallback, controlsChangeCallback, displayChangeC
         var url = 'batch.html?system=' + Gui.values.systems;
         url += '&texture='+Gui.values.textures;
         url += '&blending='+Gui.values.blendTypes;
-        url += '&depthTest='+Gui.values.depthTest;
+
         url += '&transparent='+Gui.values.transparent;
         url += '&sorting='+Gui.values.sorting;
         url += '&size='+Gui.values.windowSize;
