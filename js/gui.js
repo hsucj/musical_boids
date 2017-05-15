@@ -13,7 +13,7 @@ Gui.blendTypes = [ "Normal", "Additive" ];
 
 Gui.textures = [ "blank", "base", "fire", "smoke", "spark", "sphere", "smoke" ];
 
-Gui.music = ["symphony.mp3"];
+Gui.music = ["symphony.mp3", "justForASecond.mp3", "Meanwhile.mp3"];
 
 
 // due to a bug in dat GUI we need to initialize floats to non-interger values (like 0.5)
@@ -122,7 +122,17 @@ Gui.init = function ( meshChangeCallback, controlsChangeCallback, displayChangeC
     // } );
 
     gc.music.onChange( function(value) {
-
+        song.stop();
+        var strSong = '../music/' + value;
+        song = p5.prototype.loadSound(strSong, function(song) {
+        console.log("Song is changed.");
+        console.log(song);
+        // song.setVolume(0.5);
+        song.play();
+        });
+        analyzer = new p5.Amplitude();
+        analyzer.setInput(song);
+        ParticleEngine.restart;
     });
 
     
