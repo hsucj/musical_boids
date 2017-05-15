@@ -61,6 +61,7 @@ var song;
 var analyzer;
 var frameCounter = 0;
 var boid_centroid = new THREE.Vector3(0.0, 10.0, 0.0);
+var mark = new THREE.Vector3(0.0, 0.0, 0.0);
 
 // when HTML is finished loading, do this
 window.onload = function() {
@@ -77,6 +78,29 @@ window.onload = function() {
     Renderer.create( Scene, document.getElementById("canvas") );
 
     Renderer.update();
+
+    window.addEventListener( 'keydown', function( event ) {
+      // user pressed the enter key
+      console.log(event.which);
+      if (event.which == 65) {
+        mark.x -= 1;
+      }
+      else if (event.which == 87) {
+        mark.y += 1;
+      }
+      else if (event.which == 83) {
+        mark.y -= 1;
+      }
+      else if (event.which == 68) {
+        mark.x += 1;
+      }
+      else if (event.which == 81) {
+        mark.z -= 1;
+      }
+      else if (event.which == 69) {
+        mark.z += 1;
+      }
+    })
 
     song = p5.prototype.loadSound('../music/symphony.mp3', function(song) {
       console.log("Song is loaded.");

@@ -212,6 +212,13 @@ EulerUpdater.prototype.update = function ( particleAttributes, alive, delta_t ) 
     // Update frameCounter globally
     frameCounter++;
 
+
+
+        if (mark) {
+          Scene._objects[1].position = mark;
+          // console.log(Scene._objects);
+        }
+
     this.updateLifetimes( particleAttributes, alive, delta_t );
     this.updateVelocities( particleAttributes, alive, delta_t );
     this.updatePositions( particleAttributes, alive, delta_t );

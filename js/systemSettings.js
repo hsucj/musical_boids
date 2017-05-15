@@ -55,13 +55,17 @@ SystemSettings.basic = {
     maxParticles :  100,
     particlesFreq : 1000,
     createScene : function () {
+      // var tetrahedron_geo = new THREE.TetrahedronGeometry( 5, 0);
       var plane_geo = new THREE.PlaneBufferGeometry( 1000, 1000, 1, 1 );
       var phong      = new THREE.MeshPhongMaterial( {color: 0x444444, emissive:0x442222, side: THREE.DoubleSide } );
       var plane = new THREE.Mesh( plane_geo, phong );
+      // var tetrahedron = new THREE.Mesh ( tetrahedron_geo, phong);
+      // tetrahedron.position.y = 20;
       plane.rotation.x = -1.57;
       plane.position.y = -50;
 
       Scene.addObject( plane );
+      //Scene.addObject( tetrahedron);
     },
 };
 
