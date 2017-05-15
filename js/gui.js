@@ -15,6 +15,8 @@ Gui.textures = [ "blank", "base", "fire", "smoke", "spark", "sphere", "smoke" ];
 
 Gui.music = ["symphony.mp3", "justForASecond.mp3", "Meanwhile.mp3"];
 
+Gui.boidBehavior = ["flock", "seek", "flee", "evade", "pursue"];
+
 
 // due to a bug in dat GUI we need to initialize floats to non-interger values (like 0.5)
 // (the variable Gui.defaults below then carries their default values, which we set later)
@@ -26,10 +28,12 @@ Gui.values = {
     blendTypes:  Gui.blendTypes[0],
     textures:    Gui.textures[1],
     systems:     "basic",
+    boidBehavior: Gui.boidBehavior[0], 
     music:       Gui.music[0],
     depthTest:   false,
     transparent: true,
     sorting:     true,
+
 };
 
 // defaults only hold actual mesh modifiers, no display
@@ -76,9 +80,14 @@ Gui.init = function ( meshChangeCallback, controlsChangeCallback, displayChangeC
     var gc = {};
     gc.stopTime  = gui.add( Gui.values, 'stopTime' ).name( "Pause" );
     gc.reset     = gui.add( Gui.values, 'reset' ).name("Reset");
+
     // gc.systems   = gui.add( Gui.values, 'systems', Gui.particleSystems ).name("ParticleSystems");
     gc.music       = gui.add(Gui.values, 'music', Gui.music).name("Music");
-
+   
+    //BOID BEHAVIOR SECTION
+    var boid = gui.addFolder( "BOID BEHAVIOR");
+    gc.boidBehavior = boid.add(Gui.values, 'boidBehavior', Gui.boidBehavior).name("Boid Behavior");
+    // gc.boidBehavior
     var disp = gui.addFolder( "DISPLAY OPTIONS");
     gc.blends    = disp.add( Gui.values, 'blendTypes', Gui.blendTypes ).name("Blending Types");
     gc.textures  = disp.add( Gui.values, 'textures', Gui.textures ).name("Textures");
@@ -115,6 +124,10 @@ Gui.init = function ( meshChangeCallback, controlsChangeCallback, displayChangeC
             emitters[i]._material.needsUpdate  = true;
         }
     } );
+
+    gc.boidBehavior.onChange( function( value ) {
+
+    });
 
     // gc.systems.onChange( function(value) {
     //     var settings = SystemSettings[value];
