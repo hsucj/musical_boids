@@ -15,6 +15,8 @@ Gui.textures = [ "blank", "base", "fire", "smoke", "spark", "sphere", "smoke" ];
 
 Gui.music = ["symphony.mp3", "justForASecond.mp3", "Meanwhile.mp3"];
 
+Gui.audioOption = ["Amplitude", "Frequency"];
+
 Gui.boidBehavior = ["flock", "seek", "flee", "evade", "pursue"];
 
 
@@ -28,12 +30,14 @@ Gui.values = {
     blendTypes:  Gui.blendTypes[0],
     textures:    Gui.textures[1],
     systems:     "basic",
+    audioOption: Gui.audioOption[0],
     boidBehavior: Gui.boidBehavior[0], 
     music:       Gui.music[0],
     depthTest:   true,
     transparent: true,
     sorting:     true,
-
+    changeColor: true,
+    changeSize: true,
 };
 
 // defaults only hold actual mesh modifiers, no display
@@ -83,6 +87,8 @@ Gui.init = function ( meshChangeCallback, controlsChangeCallback, displayChangeC
 
     // gc.systems   = gui.add( Gui.values, 'systems', Gui.particleSystems ).name("ParticleSystems");
     gc.music       = gui.add(Gui.values, 'music', Gui.music).name("Music");
+
+    gc.audioOption = gui.add(Gui.values, 'audioOption', Gui.audioOption).name("Audio Option");
    
     //BOID BEHAVIOR SECTION
     var boid = gui.addFolder( "BOID BEHAVIOR");
@@ -94,6 +100,9 @@ Gui.init = function ( meshChangeCallback, controlsChangeCallback, displayChangeC
 
     gc.transp    = disp.add( Gui.values, 'transparent' ).name("Transparent");
     gc.sort      = disp.add( Gui.values, 'sorting' ).name("Sorting");
+
+    gc.changeSize = disp.add( Gui.values, 'changeSize').name("Change size");
+    gc.changeColor = disp.add( Gui.values, 'changeColor').name("Change color");
 
     // REGISTER CALLBACKS FOR WHEN GUI CHANGES:
     size.onChange( Renderer.onWindowResize );
@@ -125,6 +134,10 @@ Gui.init = function ( meshChangeCallback, controlsChangeCallback, displayChangeC
         }
     } );
 
+    gc.audioOption.onChange( function (value) {
+
+    });
+
     gc.boidBehavior.onChange( function( value ) {
 
     });
@@ -148,7 +161,13 @@ Gui.init = function ( meshChangeCallback, controlsChangeCallback, displayChangeC
         ParticleEngine.restart;
     });
 
-    
+    gc.changeColor.onChange( function(value) {
+
+    });
+
+    gc.changeSize.onChange( function(value) {
+
+    });
 
     gc.transp.onChange( function( value ) {
         var emitters = ParticleEngine.getEmitters();
