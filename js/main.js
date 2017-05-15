@@ -59,6 +59,8 @@ Main.particleSystemChangeCallback = function ( InputSettings ) {
 
 var song;
 var analyzer;
+var frameCounter = 0;
+var boid_centroid = new THREE.Vector3(0.0, 10.0, 0.0);
 
 // when HTML is finished loading, do this
 window.onload = function() {

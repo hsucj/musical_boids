@@ -2,6 +2,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Utility function to accessing correct element in arrays                    //
 ////////////////////////////////////////////////////////////////////////////////
+function getRandomArbitrary(min, max) {
+  return (Math.random() * (max - min)) + min;
+}
+
 function getElement ( i, attrib ) {
     if ( attrib.itemSize === 1 ) {
 
@@ -123,11 +127,7 @@ function cohesion (i, particleAttributes) {
 
     pc_j = pc_j.divideScalar(particleAttributes.position.length - 1);
 
-    var dt = (new Date()).getTime();
-    var x = 60.0 * Math.cos(dt / 1000.0);
-    var z = 60.0 * Math.sin(dt / 1000.0);
-
-    pc_j = new THREE.Vector3(x, 5, z);
+    pc_j = boid_centroid;
 
     return pc_j.clone().sub(getElement(i, particleAttributes.position)).divideScalar(100.0);
 }

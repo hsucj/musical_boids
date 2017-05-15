@@ -123,7 +123,6 @@ EulerUpdater.prototype.updateVelocities = function ( particleAttributes, alive, 
 EulerUpdater.prototype.updateColors = function ( particleAttributes, alive, delta_t ) {
     var colors    = particleAttributes.color;
 
-
     for ( var i = 0 ; i < alive.length ; ++i ) {
 
         if ( !alive[i] ) continue;
@@ -205,6 +204,30 @@ EulerUpdater.prototype.collisions = function ( particleAttributes, alive, delta_
 };
 
 EulerUpdater.prototype.update = function ( particleAttributes, alive, delta_t ) {
+    // Update frameCounter globally
+    frameCounter++;
+
+    // 200 determines how frequent the new point is calculated
+    if (frameCounter % 200 == 0) {
+      // console.log("New point to wander to.");
+
+      // Check that the new point isn't too far from the previous existing point, to avoid huge forces / speeds
+      var prev_point = new THREE.Vector3(boid_centroid.x, boid_centroid.y, boid_centroid.z);
+      var isFar = true;
+
+      while (isFar) {
+        // Bounds are -500,500 because the plane is 1000x1000 width by height, centered at the origin
+        // UPDATE: don't set to -500,500, because boids will fly off far away
+        var nx = getRandomArbitrary(-100,100);
+        var nz = getRandomArbitrary(-100,100);
+
+        boid_centroid.x = nx;
+        boid_centroid.z = nz;
+
+        if (boid_centroid.distanceTo(prev_point) < 100) isFar = false;
+      }
+      // console.log(boid_centroid.x, boid_centroid.y, boid_centroid.z);
+    }
 
     this.updateLifetimes( particleAttributes, alive, delta_t );
     this.updateVelocities( particleAttributes, alive, delta_t );
