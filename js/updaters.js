@@ -108,8 +108,8 @@ EulerUpdater.prototype.updateVelocities = function ( particleAttributes, alive, 
         // now update velocity based on forces...
 
         v = v.add(gravity.clone().multiplyScalar(delta_t));
-        //v = v.add(cohesion(i, particleAttributes));
-        v = v.add(wander(i, particleAttributes));
+        v = v.add(cohesion(i, particleAttributes));
+        //v = v.add(wander(i, particleAttributes));
         v = v.add(separation(i, particleAttributes));
         v = v.add(alignment(i, particleAttributes));
 
@@ -123,16 +123,19 @@ EulerUpdater.prototype.updateVelocities = function ( particleAttributes, alive, 
 
 EulerUpdater.prototype.updateColors = function ( particleAttributes, alive, delta_t ) {
     var colors    = particleAttributes.color;
+    var pos = particleAttributes.position;
 
     for ( var i = 0 ; i < alive.length ; ++i ) {
 
         if ( !alive[i] ) continue;
         // ----------- STUDENT CODE BEGIN ------------
         var c = getElement( i, colors );
+        var p = getElement( i, pos);
         if (song) {
           var amp = analyzer.getLevel();
-          c.x = (amp);
-          c.y = (amp);
+          c.x = p.x * amp;
+          c.y = p.y * amp;
+          c.z = p.z * amp;
         }
 
         setElement( i, colors, c );

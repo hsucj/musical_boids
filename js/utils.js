@@ -185,7 +185,13 @@ function separation (i, particleAttributes) {
     if (count > 0) {
       tot = tot.divideScalar(count);
     }
-    tot.multiplyScalar(-1);
+    if (song) {
+      var amp = analyzer.getLevel();
+      tot.multiplyScalar(-10 * amp);
+    }
+    else {
+      tot.multiplyScalar(-2);
+    }
     return tot;
 }
 
