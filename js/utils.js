@@ -127,9 +127,36 @@ function cohesion (i, particleAttributes) {
 
     pc_j = pc_j.divideScalar(particleAttributes.position.length - 1);
 
-    pc_j = boid_centroid;
+    // pc_j = boid_centroid;
 
     return pc_j.clone().sub(getElement(i, particleAttributes.position)).divideScalar(100.0);
+}
+
+function wander (i, particleAttributes) {
+  // 200 determines how frequent the new point is calculated
+  if (frameCounter % 200 == 0) {
+    // console.log("New point to wander to.");
+
+    // Check that the new point isn't too far from the previous existing point, to avoid huge forces / speeds
+    var prev_point = new THREE.Vector3(boid_centroid.x, boid_centroid.y, boid_centroid.z);
+    var isFar = true;
+
+    while (isFar) {
+      // Bounds are -500,500 because the plane is 1000x1000 width by height, centered at the origin
+      // UPDATE: don't set to -500,500, because boids will fly off far away
+      var nx = getRandomArbitrary(-50,50);
+      var nz = getRandomArbitrary(-50,50);
+
+      boid_centroid.x = nx;
+      boid_centroid.z = nz;
+
+      if (boid_centroid.distanceTo(prev_point) < 30) isFar = false;
+    }
+    // console.log(boid_centroid.x, boid_centroid.y, boid_centroid.z);
+  }
+  return boid_centroid.clone().sub(getElement(i, particleAttributes.position)).divideScalar(100.0);
+  //return boid_centroid;
+
 }
 
 function separation (i, particleAttributes) {
