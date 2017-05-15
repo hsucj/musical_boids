@@ -81,8 +81,10 @@ var ParticleEngine = ParticleEngine || new ( function() {
     _self.pause = function () {
         if ( _self._isRunning ) {
             _self.stop();
+            song.pause();
         } else {
             _self.start();
+            song.play();
         }
     };
 

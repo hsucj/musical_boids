@@ -30,7 +30,7 @@ Gui.values = {
     systems:     "basic",
     boidBehavior: Gui.boidBehavior[0], 
     music:       Gui.music[0],
-    depthTest:   false,
+    depthTest:   true,
     transparent: true,
     sorting:     true,
 
