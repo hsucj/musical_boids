@@ -57,8 +57,7 @@ SystemSettings.basic = {
     createScene : function () {
       var plane_geo = new THREE.PlaneBufferGeometry( 1000, 1000, 1, 1 );
       //var phong = new THREE.MeshPhongMaterial( {color: 0x444444, emissive:0x442222, side: THREE.DoubleSide } );
-
-      var skyMaterial = new THREE.MeshPhongMaterial({ map: THREE.ImageUtils.loadTexture("sky.jpg"), side: THREE.DoubleSide });
+      var skyMaterial = new THREE.MeshPhongMaterial({ map: THREE.ImageUtils.loadTexture("sky_101.jpg"), side: THREE.DoubleSide });
       var sky = new THREE.Mesh(plane_geo, skyMaterial);
       var plane = new THREE.Mesh( plane_geo, skyMaterial );
       plane.rotation.x = -1.57;

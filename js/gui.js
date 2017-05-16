@@ -11,7 +11,7 @@ Gui.blendTypes = [ "Normal", "Additive" ];
 
 //Gui.particleSystems = [ "basic", "fountainBounce", "fountainSink", "attractor", "animated", "cloth", "mySystem" ];
 
-Gui.textures = [ "blank", "base", "fire", "smoke", "spark", "sphere", "smoke" , "riley", "andy", "szymon", "amit"];
+Gui.textures = [ "blank", "base", "fire", "smoke", "spark", "sphere", "smoke" , "bird", "riley", "andy", "szymon", "amit"];
 
 Gui.music = ["symphony.mp3", "justForASecond.mp3", "Meanwhile.mp3", "The_Real_Slim_Shady.mp3", "Man_in_the_Mirror.mp3"];
 
