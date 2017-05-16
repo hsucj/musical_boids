@@ -55,20 +55,16 @@ SystemSettings.basic = {
     maxParticles :  100,
     particlesFreq : 1000,
     createScene : function () {
-      // var tetrahedron_geo = new THREE.TetrahedronGeometry( 5, 0);
       var skyGeo = new THREE.PlaneBufferGeometry(800, 600, 1, 1);
-      var skyTexture = new THREE.TextureLoader().load("sky.jpg" );
-      var skyMaterial = new THREE.MeshPhongMaterial({ map: skyTexture, side: THREE.DoubleSide });
+      var skyMaterial = new THREE.MeshPhongMaterial({ map: THREE.ImageUtils.loadTexture("sky.jpg"), side: THREE.DoubleSide });
       var sky = new THREE.Mesh(skyGeo, skyMaterial);
       sky.rotation.x = -1.57;
-      sky.position.y = 60;
+      sky.position.y = 100;
       var plane_geo = new THREE.PlaneBufferGeometry( 1000, 1000, 1, 1 );
       var phong = new THREE.MeshPhongMaterial( {color: 0x444444, emissive:0x442222, side: THREE.DoubleSide } );
       var plane = new THREE.Mesh( plane_geo, phong );
-      // var tetrahedron = new THREE.Mesh ( tetrahedron_geo, phong);
-      // tetrahedron.position.y = 20;
       plane.rotation.x = -1.57;
-      plane.position.y = -50;
+      plane.position.y = -100;
 
       Scene.addObject( plane );
 
