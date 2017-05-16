@@ -8,7 +8,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 var Collisions = Collisions || {};
-
+var maxVelocity = 50.0;
 
 Collisions.BouncePlane = function ( particleAttributes, alive, delta_t, plane,damping ) {
     var positions    = particleAttributes.position;
@@ -100,6 +100,10 @@ EulerUpdater.prototype.updateVelocities = function ( particleAttributes, alive, 
     var gravity = this._opts.externalForces.gravity;
     var attractors = this._opts.externalForces.attractors;
 
+    // if (song) {
+    //     console.log(waveAnalyze[0]);
+    // }
+
     for ( var i = 0 ; i < alive.length ; ++i ) {
         if ( !alive[i] ) continue;
         // ----------- STUDENT CODE BEGIN ------------
@@ -108,12 +112,15 @@ EulerUpdater.prototype.updateVelocities = function ( particleAttributes, alive, 
         // now update velocity based on forces...
 
         v = v.add(gravity.clone().multiplyScalar(delta_t));
-        v = v.add(cohesion(i, particleAttributes));
+        //v = v.add(cohesion(i, particleAttributes));
         //v = v.add(wander(i, particleAttributes));
         v = v.add(separation(i, particleAttributes));
         v = v.add(alignment(i, particleAttributes));
+        v = v.add(seek(i, particleAttributes));
 
-
+        if (v.length() >= maxVelocity) {
+            v = maxVelocity;
+        }
 
         setElement( i, velocities, v );
         // ----------- STUDENT CODE END ------------
@@ -145,7 +152,7 @@ EulerUpdater.prototype.updateColors = function ( particleAttributes, alive, delt
 
 EulerUpdater.prototype.updateSizes= function ( particleAttributes, alive, delta_t ) {
     var sizes    = particleAttributes.size;
-
+    //console.log("TOKEN" + token);
     for ( var i = 0 ; i < alive.length ; ++i ) {
 
         if ( !alive[i] ) continue;
@@ -153,8 +160,16 @@ EulerUpdater.prototype.updateSizes= function ( particleAttributes, alive, delta_
         var s = getElement( i, sizes );
 
         if (song) {
-          var amp = analyzer.getLevel();
-          s = 5.0 + 100*(amp);
+            if (token === 0) {
+                var amp = analyzer.getLevel();
+                s = 5.0 + 100*(amp);
+          }
+            else if (token === 1) {
+                var freq = waveAnalyze[i*10];
+                s = 5.0 + 100*(freq)
+                console.log("FREQ " + freq);
+                console.log("S " + s)
+            }
         }
 
         setElement( i, sizes, s );

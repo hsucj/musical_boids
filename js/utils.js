@@ -159,6 +159,13 @@ function wander (i, particleAttributes) {
 
 }
 
+function seek (i, particleAttributes) { 
+    return mark.clone().sub(getElement(i, particleAttributes.position)).divideScalar(100.0);
+
+    // var desired_vel = mark.clone().sub(getElement(i, particleAttributes.position));
+    // var steer = desired_vel.clone().sub(getElement(i, particleAttributes.velocity))
+    //return steer;
+}
 function separation (i, particleAttributes) {
     //var DIST_THING = 1.0;
     // var c = new THREE.Vector3(0.0, 0.0, 0.0);

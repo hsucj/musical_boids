@@ -56,9 +56,12 @@ Main.particleSystemChangeCallback = function ( InputSettings ) {
     // Create the scene
     InputSettings.createScene();
 };
-
+var token = 0;
 var song;
 var analyzer;
+var waveform;
+var waveAnalyze;
+var fft;
 var frameCounter = 0;
 var boid_centroid = new THREE.Vector3(0.0, 10.0, 0.0);
 var mark = new THREE.Vector3(0.0, 0.0, 0.0);
@@ -110,4 +113,12 @@ window.onload = function() {
     });
     analyzer = new p5.Amplitude();
     analyzer.setInput(song);
+    fft = new p5.FFT();
+    fft.setInput(song);
+    //waveAnalyze = fft.analyze();
+    waveAnalyze = fft.waveform();
+
+    //console.log(waveform);
+    //console.log(waveAnalyze)
+    //console.log("FORM " + waveform);
 };

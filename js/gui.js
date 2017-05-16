@@ -15,7 +15,7 @@ Gui.textures = [ "blank", "base", "fire", "smoke", "spark", "sphere", "smoke" ];
 
 Gui.music = ["symphony.mp3", "justForASecond.mp3", "Meanwhile.mp3"];
 
-Gui.audioOption = ["Amplitude", "Frequency"];
+Gui.audioOption = ["amplitude", "frequency"];
 
 Gui.boidBehavior = ["flock", "seek", "flee", "evade", "pursue"];
 
@@ -135,7 +135,13 @@ Gui.init = function ( meshChangeCallback, controlsChangeCallback, displayChangeC
     } );
 
     gc.audioOption.onChange( function (value) {
-
+        if (value === Gui.audioOption[0]) {
+            token = 0;
+        }
+        else if (value === Gui.audioOption[1]) {
+            token = 1;
+        }
+        ParticleEngine.restart;
     });
 
     gc.boidBehavior.onChange( function( value ) {
