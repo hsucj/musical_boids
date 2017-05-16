@@ -150,16 +150,11 @@ EulerUpdater.prototype.updateVelocities = function ( particleAttributes, alive, 
           }
         }
 
-        else if (boidType === 5) {
-          if (i === 0) {
-            v = new THREE.Vector3(50 * Math.cos(p.x), 20, 50 * Math.sin(p.z));
-          }
-          else {
+        else if (boidType === 5) {          
             v = v.add(pursue(i, particleAttributes));
             v = v.add(separation(i, particleAttributes));
             v = v.add(alignment(i, particleAttributes));
 
-          }
         }
 
         if (v.length() >= maxVelocity) {
@@ -235,7 +230,6 @@ EulerUpdater.prototype.updateSizes= function ( particleAttributes, alive, delta_
         setElement( i, sizes, s );
         // ----------- STUDENT CODE END ------------
     }
-
 };
 
 EulerUpdater.prototype.updateLifetimes = function ( particleAttributes, alive, delta_t) {

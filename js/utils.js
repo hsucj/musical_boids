@@ -165,10 +165,36 @@ function flee (i, particleAttributes) {
 }
 
 function pursue (i, particleAttributes) {
+    // 200 determines how frequent the new point is calculated
+    if (frameCounter % 200 == 0) {
+        // console.log("New point to wander to.");
+
+        // Check that the new point isn't too far from the previous existing point, to avoid huge forces / speeds
+        var prev_leader_point = new THREE.Vector3(pursue_leader_point.x, pursue_leader_point.y, pursue_leader_point.z);
+        var isFar = true;
+
+        while (isFar) {
+            // Bounds are -500,500 because the plane is 1000x1000 width by height, centered at the origin
+            // UPDATE: don't set to -500,500, because boids will fly off far away
+            var nx = getRandomArbitrary(-50,50);
+            var nz = getRandomArbitrary(-50,50);
+
+            pursue_leader_point.x = nx;
+            pursue_leader_point.z = nz;
+
+            if (pursue_leader_point.distanceTo(prev_leader_point) < 30) isFar = false;
+        }
+    }
+
     var v0 = getElement(0, particleAttributes.velocity);
     var p0 = getElement(0, particleAttributes.position);
-    p0 = p0.add(v0.multiplyScalar(3));
-    return p0.clone().sub(getElement(i, particleAttributes.position)).divideScalar(100.0);
+    if (i === 0) {
+        return pursue_leader_point.clone().sub(p0).multiplyScalar(0.00005); 
+    }
+
+    var newPos = p0.clone().add(v0.multiplyScalar(.05));
+    return newPos.clone().sub(getElement(i, particleAttributes.position)).divideScalar(100.0);
+        
 }
 
 function separation (i, particleAttributes) {

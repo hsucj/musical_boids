@@ -65,6 +65,7 @@ var waveAnalyze;
 var fft;
 var frameCounter = 0;
 var boid_centroid = new THREE.Vector3(0.0, 10.0, 0.0);
+var pursue_leader_point = new THREE.Vector3(0.0, 10.0, 0.0);
 var mark = new THREE.Vector3(0.0, 0.0, 0.0);
 
 // when HTML is finished loading, do this
