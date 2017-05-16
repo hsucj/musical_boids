@@ -35,7 +35,7 @@ Gui.values = {
     music:       Gui.music[0],
     depthTest:   false,
     transparent: true,
-    sorting:     true,
+    sorting:     false,
     changeColor: true,
     changeSize: true,
 };

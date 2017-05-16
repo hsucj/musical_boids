@@ -86,7 +86,7 @@ EulerUpdater.prototype.updatePositions = function ( particleAttributes, alive, d
     var velocities = particleAttributes.velocity;
 
     for ( var i  = 0 ; i < alive.length ; ++i ) {
-        if (i === 0 && boidType === 2) {
+        if (i === 0 && (boidType === 2 || boidType === 3)) {
             setElement(i, positions, mark);
             continue;
         }
@@ -133,17 +133,22 @@ EulerUpdater.prototype.updateVelocities = function ( particleAttributes, alive, 
             v = v.add(alignment(i, particleAttributes));
         }
         else if (boidType === 3) {
+          if (i === 0) {v = new THREE.Vector3(0,0,0);}
+          else {
             v = v.add(flee(i, particleAttributes));
+            v = v.add(cohesion(i, particleAttributes));
             v = v.add(separation(i, particleAttributes));
             v = v.add(alignment(i, particleAttributes));
+          }
         }
 
         else if (boidType === 4) {
           if (i === 0) {
-            v = new THREE.Vector3(p.x * delta_t, p.y * delta_t, p.y * delta_t);
+            v = new THREE.Vector3(5 * Math.cos(delta_t), 0, 5 * Math.sin(delta_t));
           }
           else {
             v = v.add(evade(i, particleAttributes));
+            v = v.add(cohesion(i, particleAttributes));
             v = v.add(separation(i, particleAttributes));
             v = v.add(alignment(i, particleAttributes));
 
@@ -151,10 +156,14 @@ EulerUpdater.prototype.updateVelocities = function ( particleAttributes, alive, 
         }
 
         else if (boidType === 5) {
+          if (i === 0) {
+            v = new THREE.Vector3(5 * Math.cos(delta_t), 0, 5 * Math.sin(delta_t));
+          }
+          else {
             v = v.add(pursue(i, particleAttributes));
             v = v.add(separation(i, particleAttributes));
             v = v.add(alignment(i, particleAttributes));
-
+          }
         }
 
         if (v.length() >= maxVelocity) {
@@ -175,7 +184,7 @@ EulerUpdater.prototype.updateColors = function ( particleAttributes, alive, delt
 
         if ( !alive[i] ) continue;
 
-        if (i === 0 && (boidType === 2 || boidType === 4 || boidType === 5)){
+        if (i === 0 && (boidType === 2 || boidType === 3 || boidType === 4 || boidType === 5)){
             var c = getElement( i, colors );
             c.x = 1.0;
             c.y = 1.0;
@@ -208,8 +217,8 @@ EulerUpdater.prototype.updateSizes= function ( particleAttributes, alive, delta_
         // ----------- STUDENT CODE BEGIN ------------
         var s = getElement( i, sizes );
 
-        if (i === 0 && (boidType === 2 || boidType === 4 || boidType === 5)) {
-            setElement(i, sizes, s * 3);
+        if (i === 0 && (boidType === 2 || boidType === 3 || boidType === 4 || boidType === 5)) {
+            setElement(i, sizes, 100);
             continue;
         }
 
@@ -281,12 +290,6 @@ EulerUpdater.prototype.update = function ( particleAttributes, alive, delta_t ) 
     // Update frameCounter globally
     frameCounter++;
 
-
-
-        if (mark) {
-          Scene._objects[1].position = mark;
-          // console.log(Scene._objects);
-        }
 
     this.updateLifetimes( particleAttributes, alive, delta_t );
     this.updateVelocities( particleAttributes, alive, delta_t );
