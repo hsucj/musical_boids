@@ -36,8 +36,6 @@ Gui.values = {
     depthTest:   false,
     transparent: true,
     sorting:     false,
-    changeColor: true,
-    changeSize: true,
 };
 
 // defaults only hold actual mesh modifiers, no display
@@ -101,8 +99,6 @@ Gui.init = function ( meshChangeCallback, controlsChangeCallback, displayChangeC
     gc.transp    = disp.add( Gui.values, 'transparent' ).name("Transparent");
     gc.sort      = disp.add( Gui.values, 'sorting' ).name("Sorting");
 
-    gc.changeSize = disp.add( Gui.values, 'changeSize').name("Change size");
-    gc.changeColor = disp.add( Gui.values, 'changeColor').name("Change color");
 
     // REGISTER CALLBACKS FOR WHEN GUI CHANGES:
     size.onChange( Renderer.onWindowResize );
@@ -193,14 +189,6 @@ Gui.init = function ( meshChangeCallback, controlsChangeCallback, displayChangeC
         fft = new p5.FFT();
         fft.setInput(song);
         ParticleEngine.restart();
-
-    });
-
-    gc.changeColor.onChange( function(value) {
-
-    });
-
-    gc.changeSize.onChange( function(value) {
 
     });
 
