@@ -159,15 +159,15 @@ function wander (i, particleAttributes) {
 
 }
 
-function seek (i, particleAttributes) { 
-    console.log(mark);
+function seek (i, particleAttributes) {
+    //console.log(mark);
     return mark.clone().sub(getElement(i, particleAttributes.position)).divideScalar(100.0);
 
     // var desired_vel = mark.clone().sub(getElement(i, particleAttributes.position));
     // var steer = desired_vel.clone().sub(getElement(i, particleAttributes.velocity))
     //return steer;
 }
-function flee (i, particleAttributes) { 
+function flee (i, particleAttributes) {
     return mark.clone().sub(getElement(i, particleAttributes.position)).divideScalar(-100.0);
 }
 function separation (i, particleAttributes) {

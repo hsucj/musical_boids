@@ -203,6 +203,7 @@ EulerUpdater.prototype.updateSizes= function ( particleAttributes, alive, delta_
                 s = 5.0 + 100*(amp);
           }
             else if (token === 1) {
+              waveAnalyze = fft.waveform();
                 var freq = waveAnalyze[i*10];
                 s = 5.0 + 100*(freq)
                 console.log("FREQ " + freq);

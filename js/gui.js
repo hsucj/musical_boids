@@ -13,7 +13,7 @@ Gui.blendTypes = [ "Normal", "Additive" ];
 
 Gui.textures = [ "blank", "base", "fire", "smoke", "spark", "sphere", "smoke" , "riley", "andy", "szymon", "amit"];
 
-Gui.music = ["symphony.mp3", "justForASecond.mp3", "Meanwhile.mp3"];
+Gui.music = ["symphony.mp3", "justForASecond.mp3", "Meanwhile.mp3", "The_Real_Slim_Shady.mp3", "Man_in_the_Mirror.mp3"];
 
 Gui.audioOption = ["amplitude", "frequency"];
 
@@ -183,7 +183,10 @@ Gui.init = function ( meshChangeCallback, controlsChangeCallback, displayChangeC
         });
         analyzer = new p5.Amplitude();
         analyzer.setInput(song);
+        fft = new p5.FFT();
+        fft.setInput(song);
         ParticleEngine.restart();
+
     });
 
     gc.changeColor.onChange( function(value) {

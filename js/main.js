@@ -116,8 +116,6 @@ window.onload = function() {
     analyzer.setInput(song);
     fft = new p5.FFT();
     fft.setInput(song);
-    //waveAnalyze = fft.analyze();
-    waveAnalyze = fft.waveform();
 
     //console.log(waveform);
     //console.log(waveAnalyze)
