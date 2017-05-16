@@ -17,7 +17,7 @@ Gui.music = ["symphony.mp3", "justForASecond.mp3", "Meanwhile.mp3"];
 
 Gui.audioOption = ["amplitude", "frequency"];
 
-Gui.boidBehavior = ["flock", "seek", "flee", "evade", "pursue"];
+Gui.boidBehavior = ["flock", "wander", "seek", "flee", "evade", "pursue"];
 
 
 // due to a bug in dat GUI we need to initialize floats to non-interger values (like 0.5)
@@ -141,11 +141,30 @@ Gui.init = function ( meshChangeCallback, controlsChangeCallback, displayChangeC
         else if (value === Gui.audioOption[1]) {
             token = 1;
         }
-        ParticleEngine.restart;
+        ParticleEngine.restart();
     });
 
     gc.boidBehavior.onChange( function( value ) {
-
+        if (value === Gui.boidBehavior[0]) {
+            boidType = 0;
+        }
+        else if (value === Gui.boidBehavior[1]) {
+            boidType = 1;
+        }
+        else if (value === Gui.boidBehavior[2]) {
+            boidType = 2;
+            mark = new THREE.Vector3(0.0, 0.0, 0.0);
+        }
+        else if (value === Gui.boidBehavior[3]) {
+            boidType = 3;
+        }
+        else if (value === Gui.boidBehavior[4]) {
+            boidType = 4;
+        }
+        else if (value === Gui.boidBehavior[5]) {
+            boidType = 5;
+        }
+        ParticleEngine.restart();
     });
 
     // gc.systems.onChange( function(value) {
@@ -164,7 +183,7 @@ Gui.init = function ( meshChangeCallback, controlsChangeCallback, displayChangeC
         });
         analyzer = new p5.Amplitude();
         analyzer.setInput(song);
-        ParticleEngine.restart;
+        ParticleEngine.restart();
     });
 
     gc.changeColor.onChange( function(value) {

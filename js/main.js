@@ -57,6 +57,7 @@ Main.particleSystemChangeCallback = function ( InputSettings ) {
     InputSettings.createScene();
 };
 var token = 0;
+var boidType = 0;
 var song;
 var analyzer;
 var waveform;

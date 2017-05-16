@@ -128,8 +128,8 @@ function cohesion (i, particleAttributes) {
     pc_j = pc_j.divideScalar(particleAttributes.position.length - 1);
 
     // pc_j = boid_centroid;
-    //return pc_j.clone().sub(getElement(i, particleAttributes.position)).divideScalar(100.0);
-    return mark.clone().sub(getElement(i, particleAttributes.position)).divideScalar(100.0);
+    return pc_j.clone().sub(getElement(i, particleAttributes.position)).divideScalar(100.0);
+   // return mark.clone().sub(getElement(i, particleAttributes.position)).divideScalar(100.0);
 }
 
 function wander (i, particleAttributes) {

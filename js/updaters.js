@@ -110,13 +110,22 @@ EulerUpdater.prototype.updateVelocities = function ( particleAttributes, alive, 
         var p = getElement( i, positions );
         var v = getElement( i, velocities );
         // now update velocity based on forces...
-
         v = v.add(gravity.clone().multiplyScalar(delta_t));
-        //v = v.add(cohesion(i, particleAttributes));
-        //v = v.add(wander(i, particleAttributes));
-        v = v.add(separation(i, particleAttributes));
-        v = v.add(alignment(i, particleAttributes));
-        v = v.add(seek(i, particleAttributes));
+        if (boidType === 0) {
+            v = v.add(cohesion(i, particleAttributes));
+            v = v.add(separation(i, particleAttributes));
+            v = v.add(alignment(i, particleAttributes));
+        }
+        else if (boidType === 1) {
+            v = v.add(wander(i, particleAttributes));
+            v = v.add(separation(i, particleAttributes));
+            v = v.add(alignment(i, particleAttributes));
+        }
+        else if (boidType === 2) {
+            v = v.add(seek(i, particleAttributes));
+            v = v.add(separation(i, particleAttributes));
+            v = v.add(alignment(i, particleAttributes));
+        }
 
         if (v.length() >= maxVelocity) {
             v = maxVelocity;
