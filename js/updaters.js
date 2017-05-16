@@ -126,6 +126,11 @@ EulerUpdater.prototype.updateVelocities = function ( particleAttributes, alive, 
             v = v.add(separation(i, particleAttributes));
             v = v.add(alignment(i, particleAttributes));
         }
+        else if (boidType === 3) {
+            v = v.add(flee(i, particleAttributes));
+            v = v.add(separation(i, particleAttributes));
+            v = v.add(alignment(i, particleAttributes));
+        }
 
         if (v.length() >= maxVelocity) {
             v = maxVelocity;
