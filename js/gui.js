@@ -11,7 +11,7 @@ Gui.blendTypes = [ "Normal", "Additive" ];
 
 //Gui.particleSystems = [ "basic", "fountainBounce", "fountainSink", "attractor", "animated", "cloth", "mySystem" ];
 
-Gui.textures = [ "blank", "base", "fire", "smoke", "spark", "sphere", "smoke" ];
+Gui.textures = [ "blank", "base", "fire", "smoke", "spark", "sphere", "smoke" , "riley", "andy", "szymon", "amit"];
 
 Gui.music = ["symphony.mp3", "justForASecond.mp3", "Meanwhile.mp3"];
 
@@ -31,7 +31,7 @@ Gui.values = {
     textures:    Gui.textures[1],
     systems:     "basic",
     audioOption: Gui.audioOption[0],
-    boidBehavior: Gui.boidBehavior[0], 
+    boidBehavior: Gui.boidBehavior[0],
     music:       Gui.music[0],
     depthTest:   true,
     transparent: true,
@@ -89,7 +89,7 @@ Gui.init = function ( meshChangeCallback, controlsChangeCallback, displayChangeC
     gc.music       = gui.add(Gui.values, 'music', Gui.music).name("Music");
 
     gc.audioOption = gui.add(Gui.values, 'audioOption', Gui.audioOption).name("Audio Option");
-   
+
     //BOID BEHAVIOR SECTION
     var boid = gui.addFolder( "BOID BEHAVIOR");
     gc.boidBehavior = boid.add(Gui.values, 'boidBehavior', Gui.boidBehavior).name("Boid Behavior");
