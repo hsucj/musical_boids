@@ -97,7 +97,7 @@ Gui.init = function ( meshChangeCallback, controlsChangeCallback, displayChangeC
     var disp = gui.addFolder( "DISPLAY OPTIONS");
     gc.blends    = disp.add( Gui.values, 'blendTypes', Gui.blendTypes ).name("Blending Types");
     gc.textures  = disp.add( Gui.values, 'textures', Gui.textures ).name("Textures");
-
+    gc.depthTest = disp.add( Gui.values, 'depthTest' ).name("Depth Test");
     gc.transp    = disp.add( Gui.values, 'transparent' ).name("Transparent");
     gc.sort      = disp.add( Gui.values, 'sorting' ).name("Sorting");
 
@@ -172,6 +172,13 @@ Gui.init = function ( meshChangeCallback, controlsChangeCallback, displayChangeC
     //     Main.particleSystemChangeCallback ( settings );
     // } );
 
+    gc.depthTest.onChange( function( value ) {
+        var emitters = ParticleEngine.getEmitters();
+        for ( var i = 0 ; i < emitters.length ; i++ ) {
+            emitters[i]._material.depthTest = value;
+        }
+    });
+
     gc.music.onChange( function(value) {
         song.stop();
         var strSong = '../music/' + value;
@@ -216,7 +223,7 @@ Gui.init = function ( meshChangeCallback, controlsChangeCallback, displayChangeC
         var url = 'batch.html?system=' + Gui.values.systems;
         url += '&texture='+Gui.values.textures;
         url += '&blending='+Gui.values.blendTypes;
-
+        url += '&depthTest='+Gui.values.depthTest;
         url += '&transparent='+Gui.values.transparent;
         url += '&sorting='+Gui.values.sorting;
         url += '&size='+Gui.values.windowSize;
