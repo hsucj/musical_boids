@@ -55,20 +55,40 @@ SystemSettings.basic = {
     maxParticles :  100,
     particlesFreq : 1000,
     createScene : function () {
-      var skyGeo = new THREE.PlaneBufferGeometry(800, 600, 1, 1);
-      var skyMaterial = new THREE.MeshPhongMaterial({ map: THREE.ImageUtils.loadTexture("sky.jpg"), side: THREE.DoubleSide });
-      var sky = new THREE.Mesh(skyGeo, skyMaterial);
-      sky.rotation.x = -1.57;
-      sky.position.y = 100;
       var plane_geo = new THREE.PlaneBufferGeometry( 1000, 1000, 1, 1 );
-      var phong = new THREE.MeshPhongMaterial( {color: 0x444444, emissive:0x442222, side: THREE.DoubleSide } );
-      var plane = new THREE.Mesh( plane_geo, phong );
+      //var phong = new THREE.MeshPhongMaterial( {color: 0x444444, emissive:0x442222, side: THREE.DoubleSide } );
+
+      var skyMaterial = new THREE.MeshPhongMaterial({ map: THREE.ImageUtils.loadTexture("sky.jpg"), side: THREE.DoubleSide });
+      var sky = new THREE.Mesh(plane_geo, skyMaterial);
+      var plane = new THREE.Mesh( plane_geo, skyMaterial );
       plane.rotation.x = -1.57;
-      plane.position.y = -100;
+      plane.position.y = -200;
+      sky.rotation.x = -1.57;
+      sky.position.y = 240;
+      var sky2 = new THREE.Mesh(plane_geo, skyMaterial);
+      sky2.rotation.x = -3.14;
+      sky2.position.z = 300;
+      var sky3 = new THREE.Mesh(plane_geo, skyMaterial);
+      sky3.rotation.x = -3.14;
+      sky3.rotation.y = -1.57;
+      sky3.position.z = 200;
+      sky3.position.x = -350;
+      var sky4 = new THREE.Mesh(plane_geo, skyMaterial);
+      sky4.rotation.x = -3.14;
+      sky4.rotation.y = 1.57;
+      sky4.position.z = 240;
+      sky4.position.x = 400;
+      var sky5 = new THREE.Mesh(plane_geo, skyMaterial);
+      sky5.rotation.x = 3.14;
+      sky5.position.z = -250;
 
       Scene.addObject( plane );
 
       Scene.addObject(sky);
+      Scene.addObject(sky2);
+      Scene.addObject(sky3);
+      Scene.addObject(sky4);
+      Scene.addObject(sky5);
       //Scene.addObject( tetrahedron);
     },
 };

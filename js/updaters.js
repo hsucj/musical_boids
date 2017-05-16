@@ -140,7 +140,7 @@ EulerUpdater.prototype.updateVelocities = function ( particleAttributes, alive, 
 
         else if (boidType === 4) {
           if (i === 0) {
-            v = new THREE.Vector3(5 * Math.cos(p.x), 5 * Math.sin(p.y), 5 * Math.tan(p.z));
+            v = new THREE.Vector3(p.x * delta_t, p.y * delta_t, p.y * delta_t);
           }
           else {
             v = v.add(evade(i, particleAttributes));
@@ -150,7 +150,7 @@ EulerUpdater.prototype.updateVelocities = function ( particleAttributes, alive, 
           }
         }
 
-        else if (boidType === 5) {          
+        else if (boidType === 5) {
             v = v.add(pursue(i, particleAttributes));
             v = v.add(separation(i, particleAttributes));
             v = v.add(alignment(i, particleAttributes));
