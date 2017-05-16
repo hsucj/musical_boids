@@ -152,24 +152,25 @@ function wander (i, particleAttributes) {
 
       if (boid_centroid.distanceTo(prev_point) < 30) isFar = false;
     }
-    // console.log(boid_centroid.x, boid_centroid.y, boid_centroid.z);
   }
   return boid_centroid.clone().sub(getElement(i, particleAttributes.position)).divideScalar(100.0);
-  //return boid_centroid;
 
 }
 
 function seek (i, particleAttributes) {
-    //console.log(mark);
     return mark.clone().sub(getElement(i, particleAttributes.position)).divideScalar(100.0);
-
-    // var desired_vel = mark.clone().sub(getElement(i, particleAttributes.position));
-    // var steer = desired_vel.clone().sub(getElement(i, particleAttributes.velocity))
-    //return steer;
 }
 function flee (i, particleAttributes) {
     return mark.clone().sub(getElement(i, particleAttributes.position)).divideScalar(-100.0);
 }
+
+function pursue (i, particleAttributes) {
+    var v0 = getElement(0, particleAttributes.velocity);
+    var p0 = getElement(0, particleAttributes.position);
+    p0 = p0.add(v0.multiplyScalar(3));
+    return p0.clone().sub(getElement(i, particleAttributes.position)).divideScalar(100.0);
+}
+
 function separation (i, particleAttributes) {
     //var DIST_THING = 1.0;
     // var c = new THREE.Vector3(0.0, 0.0, 0.0);

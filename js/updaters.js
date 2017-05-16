@@ -112,7 +112,7 @@ EulerUpdater.prototype.updateVelocities = function ( particleAttributes, alive, 
     for ( var i = 0 ; i < alive.length ; ++i ) {
         if ( !alive[i] ) continue;
 
-        if (i === 0 && boidType === 2) {
+        if (i === 0 && (boidType === 2 || boidType === 4 || boidType === 5)) {
             continue;
         }
         // ----------- STUDENT CODE BEGIN ------------
@@ -141,6 +141,30 @@ EulerUpdater.prototype.updateVelocities = function ( particleAttributes, alive, 
             v = v.add(alignment(i, particleAttributes));
         }
 
+        else if (boidType === 4) {
+          if (i === 0) {
+            v = new THREE.Vector3(5 * Math.cos(p.x), 5 * Math.sin(p.y), 5 * Math.tan(p.z));
+          }
+          else {
+            v = v.add(evade(i, particleAttributes));
+            v = v.add(separation(i, particleAttributes));
+            v = v.add(alignment(i, particleAttributes));
+
+          }
+        }
+
+        else if (boidType === 5) {
+          if (i === 0) {
+            v = new THREE.Vector3(50 * Math.cos(p.x), 20, 50 * Math.sin(p.z));
+          }
+          else {
+            v = v.add(pursue(i, particleAttributes));
+            v = v.add(separation(i, particleAttributes));
+            v = v.add(alignment(i, particleAttributes));
+
+          }
+        }
+
         if (v.length() >= maxVelocity) {
             v = maxVelocity;
         }
@@ -159,7 +183,7 @@ EulerUpdater.prototype.updateColors = function ( particleAttributes, alive, delt
 
         if ( !alive[i] ) continue;
 
-        if (i === 0 && boidType === 2){
+        if (i === 0 && (boidType === 2 || boidType === 4 || boidType === 5)){
             var c = getElement( i, colors );
             c.x = 1.0;
             c.y = 1.0;
@@ -192,7 +216,7 @@ EulerUpdater.prototype.updateSizes= function ( particleAttributes, alive, delta_
         // ----------- STUDENT CODE BEGIN ------------
         var s = getElement( i, sizes );
 
-        if (i === 0 && boidType === 2) {
+        if (i === 0 && (boidType === 2 || boidType === 4 || boidType === 5)) {
             setElement(i, sizes, s * 3);
             continue;
         }
