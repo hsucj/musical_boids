@@ -86,7 +86,12 @@ EulerUpdater.prototype.updatePositions = function ( particleAttributes, alive, d
     var velocities = particleAttributes.velocity;
 
     for ( var i  = 0 ; i < alive.length ; ++i ) {
+        if (i === 0 && boidType === 2) {
+            setElement(i, positions, mark);
+            continue;
+        }
         if ( !alive[i] ) continue;
+
         var p = getElement( i, positions );
         var v = getElement( i, velocities );
         p.add( v.clone().multiplyScalar( delta_t ) );
@@ -106,6 +111,10 @@ EulerUpdater.prototype.updateVelocities = function ( particleAttributes, alive, 
 
     for ( var i = 0 ; i < alive.length ; ++i ) {
         if ( !alive[i] ) continue;
+
+        if (i === 0 && boidType === 2) {
+            continue;
+        }
         // ----------- STUDENT CODE BEGIN ------------
         var p = getElement( i, positions );
         var v = getElement( i, velocities );
@@ -149,6 +158,16 @@ EulerUpdater.prototype.updateColors = function ( particleAttributes, alive, delt
     for ( var i = 0 ; i < alive.length ; ++i ) {
 
         if ( !alive[i] ) continue;
+
+        if (i === 0 && boidType === 2){
+            var c = getElement( i, colors );
+            c.x = 1.0;
+            c.y = 1.0;
+            c.z = 1.0;
+            setElement(i, colors, c);
+            continue;
+        }
+
         // ----------- STUDENT CODE BEGIN ------------
         var c = getElement( i, colors );
         var p = getElement( i, pos);
@@ -172,6 +191,11 @@ EulerUpdater.prototype.updateSizes= function ( particleAttributes, alive, delta_
         if ( !alive[i] ) continue;
         // ----------- STUDENT CODE BEGIN ------------
         var s = getElement( i, sizes );
+
+        if (i === 0 && boidType === 2) {
+            setElement(i, sizes, s * 3);
+            continue;
+        }
 
         if (song) {
             if (token === 0) {

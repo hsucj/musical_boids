@@ -160,6 +160,7 @@ function wander (i, particleAttributes) {
 }
 
 function seek (i, particleAttributes) { 
+    console.log(mark);
     return mark.clone().sub(getElement(i, particleAttributes.position)).divideScalar(100.0);
 
     // var desired_vel = mark.clone().sub(getElement(i, particleAttributes.position));
