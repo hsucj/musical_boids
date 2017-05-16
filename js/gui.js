@@ -33,7 +33,7 @@ Gui.values = {
     audioOption: Gui.audioOption[0],
     boidBehavior: Gui.boidBehavior[0],
     music:       Gui.music[0],
-    depthTest:   true,
+    depthTest:   false,
     transparent: true,
     sorting:     true,
     changeColor: true,

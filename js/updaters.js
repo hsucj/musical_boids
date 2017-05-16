@@ -112,9 +112,9 @@ EulerUpdater.prototype.updateVelocities = function ( particleAttributes, alive, 
     for ( var i = 0 ; i < alive.length ; ++i ) {
         if ( !alive[i] ) continue;
 
-        if (i === 0 && boidType === 2) {
-            continue;
-        }
+        // if (i === 0 && boidType === 2) {
+        //     continue;
+        // }
         // ----------- STUDENT CODE BEGIN ------------
         var p = getElement( i, positions );
         var v = getElement( i, velocities );
