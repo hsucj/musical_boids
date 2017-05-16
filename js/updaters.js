@@ -21,6 +21,15 @@ Collisions.BouncePlane = function ( particleAttributes, alive, delta_t, plane,da
         var pos = getElement( i, positions );
         var vel = getElement( i, velocities );
 
+        var norm = new THREE.Vector3(plane.x, plane.y, plane.z);
+
+        if ( plane.x * pos.x + plane.y * pos.y + plane.z * pos.z <= plane.w){
+           vel = vel.reflect(norm);
+           vel = vel.clone().multiplyScalar(damping);
+           pos = pos.add(vel.clone().multiplyScalar(delta_t));
+       }
+
+
         setElement( i, positions, pos );
         setElement( i, velocities, vel );
         // ----------- STUDENT CODE END ------------
